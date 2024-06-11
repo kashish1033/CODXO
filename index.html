@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Todo App</title>
+    <style>
+     * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+  }
+  
+  body {
+    background-color:hsl(60, 4%, 5%) ;
+    color: #f8f1f1;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+  }
+  .container {
+    margin-top: 5;
+    background-color: cadetblue;
+    padding: 2rem 5rem;
+    border-radius: 1rem;
+    box-shadow: 5px 5px 10px ;
+
+  }
+  
+  .todo-form {
+    flex-direction: column;
+    margin-bottom: 1rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  .todo-input {
+    align-items: center;
+    width: 100%;
+    padding: 1rem;
+    margin-bottom: 10px;
+    border: none;
+    outline: none;
+  }
+  
+  .todo-button {
+    background-color: #484b48;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    outline: none;
+    width: 100%;
+  }
+  
+  .todo-button:hover {
+    background-color: #171817;
+  }
+  .todo-output {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
+    overflow: auto;
+    max-height: 200PX;
+  }
+  .todo-item{
+    width:100% ;
+    padding: 0.5rem 1rem;
+    font-size:1.2rem ;
+    border-radius:0.5rem ;
+    margin-bottom: 1rem;
+    color:white ;
+    display: flex ;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .todo-text{
+    background-color: white;
+    color: black;
+    padding: 0.4rem;
+    border: none;
+    outline:none;
+  }
+  .todo-complete, .todo-dlt{
+    cursor: pointer;
+    padding:0.5rem 2.5rem ;
+    font-size:0.8rem; 
+    background-color:yellow ;
+    margin-left:20px ;
+    margin-right: 5px;
+    outline: none;
+    border: none;
+  }
+  .todo-complete:hover, .todo-dlt:hover{
+    background-color: black;
+    color: white;
+  }
+  .todo-dlt{
+    background-color: rgb(211, 66, 66);
+  }
+  .strike{
+    text-decoration: line-through;
+  }
+  ::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+::-webkit-scrollbar-thumb {
+  background: #333232;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #363333;
+}
+ 
+    </style>
+</head>
+<body >
+     <div class="container">
+        <h1 class="heading">To Do List</h1>
+        <form class="todo-form">
+            <input type="text" class="todo-input" placeholder="Enter a task">
+            <button class="todo-button">Add Task</button>
+        </form>
+        <div class="todo-output">
+        </div>
+    </div>
+<script>{
+const form = document.querySelector('.todo-form');
+const input = document.querySelector('.todo-input');
+const todoOutput = document.querySelector('.todo-output');
+
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const newItem = document.createElement('div');
+  newItem.classList.add('todo-item');
+
+  const newInput = document.createElement('input');
+  newInput.type = 'text';
+  newInput.classList.add('todo-text');
+  newInput.value = input.value;
+  newInput.disabled = true;
+
+  const completeButton = document.createElement('button');
+  completeButton.classList.add('todo-complete');
+  completeButton.textContent = 'complete';
+
+  const deleteButton = document.createElement('button');
+  deleteButton.classList.add('todo-dlt');
+  deleteButton.textContent = 'delete';
+  newItem.appendChild(newInput);
+  newItem.appendChild(completeButton);
+  newItem.appendChild(deleteButton);
+
+  todoOutput.appendChild(newItem);
+  input.value = '';
+});
+todoOutput.addEventListener('click', (e) => {
+  if (e.target.classList.contains('todo-dlt')) {
+    e.target.parentElement.remove();
+  }
+});
+todoOutput.addEventListener('click', (e) => {
+  if (e.target.classList.contains('todo-complete')) {
+    e.target.parentElement.querySelector('.todo-text').classList.add('strike');
+  }
+});
+  }
+</script>
+</body>
+</html>
